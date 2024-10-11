@@ -1,5 +1,5 @@
 // src/user.controller.ts
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { userService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
@@ -9,6 +9,14 @@ export class userController {
 
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
-    return this.userService.registrarse(createUserDto);
+    try {
+      return await this.userService.registrarse(createUserDto);
+    } catch (error) {
+      console.error('Error al registrar el usuario:', error);
+      throw new HttpException(
+        'Error al registrar el usuario',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
