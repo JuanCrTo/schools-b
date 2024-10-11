@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(cors({
-    origin: ['http://localhost:3000', 'https://schools.up.railway.app/'], // Permitir solicitudes desde este origen
+    origin: ['http://localhost:3000', 'https://schools.up.railway.app'], // Permitir solicitudes desde este origen
   }));
   await app.listen(process.env.PORT || 3001);
 }
