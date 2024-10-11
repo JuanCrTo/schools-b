@@ -12,6 +12,11 @@ export class UserController {
       return await this.userService.registrarse(createUserDto);
     } catch (error) {
       console.error('Error al registrar el usuario:', error);
+
+      if (error.message === 'El email ya está registrado') {
+        throw new HttpException('El email ya está registrado', HttpStatus.CONFLICT);
+      }
+      
       throw new HttpException(
         'Error al registrar el usuario',
         HttpStatus.INTERNAL_SERVER_ERROR,

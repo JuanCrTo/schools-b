@@ -11,6 +11,10 @@ export class UserService {
   ) {}
 
   async registrarse(createUserDto: CreateUserDto): Promise<IUser> {
+    const userExistente = await this.userModel.findOne({ email: createUserDto.email });
+    if (userExistente) {
+      throw new Error('El email ya está registrado');
+    }
     const nuevouser = new this.userModel(createUserDto);
     return nuevouser.save();
   }
