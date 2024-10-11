@@ -1,4 +1,3 @@
-// src/user.controller.ts
 import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
 import { userService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
