@@ -1,4 +1,11 @@
-import { Controller, Get, Put, Body, Param, NotFoundException } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Put,
+  Body,
+  Param,
+  NotFoundException,
+} from '@nestjs/common';
 // import { SchoolService } from './school.service';
 // import { ISchool } from './interfaces/school.interface';
 import { UpdateSchoolDto } from './dto/update-school.dto';
@@ -19,7 +26,10 @@ export class SchoolController {
     @Param('id') id: string,
     @Body() school: UpdateSchoolDto,
   ): Promise<IUser> {
-    const updatedSchoolProfile = await this.userService.updateUserById(id, school);
+    const updatedSchoolProfile = await this.userService.updateUserById(
+      id,
+      school,
+    );
 
     if (!updatedSchoolProfile) {
       throw new NotFoundException(`Colegio con ID ${id} no encontrado`);
