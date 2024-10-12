@@ -24,6 +24,21 @@ export class UserController {
     }
   }
 
+  @Post('login')
+  async login(@Body() loginDto: { email: string; password: string }) {
+    const { email, password } = loginDto;
+    try {
+      const usuario = await this.userService.iniciarSesion(email, password);
+      return {
+        message: 'Inicio de sesión exitoso',
+        user: usuario,
+      };
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      throw new HttpException('Credenciales inválidas', HttpStatus.UNAUTHORIZED);
+    }
+  }
+
   @Get('profile')
   async getProfile(@Request() req) {
     try {

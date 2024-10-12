@@ -4,6 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { IUser } from './interfaces/user.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './model/user.schema';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -16,11 +17,32 @@ export class UserService {
     if (userExistente) {
       throw new Error('El email ya está registrado');
     }
-    const nuevouser = new this.userModel(createUserDto);
-    return nuevouser.save();
+    
+    // Hashear la contraseña antes de guardarla
+    const passwordHashed = await bcrypt.hash(createUserDto.password, 10);
+    const nuevoUser = new this.userModel({
+      ...createUserDto,
+      password: passwordHashed, // Almacena la contraseña hasheada
+    });
+    
+    return nuevoUser.save();
   }
 
   async obtenerUsuarioPorId(userId: string): Promise<IUser | null> {
     return this.userModel.findById(userId).exec();
+  }
+
+  async iniciarSesion(email: string, password: string): Promise<IUser | null> {
+    const usuario = await this.userModel.findOne({ email }).exec();
+    if (!usuario) {
+      throw new Error('Credenciales inválidas');
+    }
+    
+    const contraseñaValida = await bcrypt.compare(password, usuario.password);
+    if (!contraseñaValida) {
+      throw new Error('Credenciales inválidas');
+    }
+
+    return usuario;
   }
 }
