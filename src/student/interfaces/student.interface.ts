@@ -1,3 +1,4 @@
 export interface IStudent {
-    telefono: string;
-  }
+  nombre: string;
+  telefono: string;
+}

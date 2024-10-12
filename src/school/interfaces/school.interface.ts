@@ -4,6 +4,7 @@ export enum TipoInstitucion {
 }
 
 export interface ISchool {
+  nombre: string;
   telefono: string;
   direccion: string;
   tipoInstitucion: TipoInstitucion;

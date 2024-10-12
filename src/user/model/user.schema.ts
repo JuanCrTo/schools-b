@@ -6,9 +6,6 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema({ timestamps: true, versionKey: false })
 export class User {
-  @Prop({ required: true })
-  nombre: string;
-
   @Prop({ required: true, enum: TipoUsuario })
   tipoUsuario: TipoUsuario;
 

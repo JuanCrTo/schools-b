@@ -9,11 +9,11 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 
-console.log('Conectando a MongoDB en:', process.env.MONGO_URL);
+console.log('Conectando a MongoDB en:', process.env.MONGO_URL_LOCAL);
 
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGO_URL), UserModule, SchoolModule, StudentModule],
+  imports: [MongooseModule.forRoot(process.env.MONGO_URL_LOCAL), UserModule, SchoolModule, StudentModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -1,40 +1,30 @@
-import {
-  Controller,
-  Get,
-  Put,
-  Body,
-  Param,
-  NotFoundException,
-} from '@nestjs/common';
-// import { SchoolService } from './school.service';
-// import { ISchool } from './interfaces/school.interface';
+import { Controller, Get, Put, Body, Param, Post } from '@nestjs/common';
+import { SchoolService } from './school.service';
 import { UpdateSchoolDto } from './dto/update-school.dto';
-import { IUser } from 'src/user/interfaces/user.interface';
-import { UserService } from 'src/user/user.service';
+import { CreateSchoolDto } from './dto/create-school.dto';
 
 @Controller('school')
 export class SchoolController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly schoolService: SchoolService) {}
 
-  @Get(':id')
-  async getSchoolProfile(@Param('id') id: string): Promise<IUser> {
-    return await this.userService.obtenerUsuarioPorId(id);
+  @Get(':userId')
+  async getSchoolByUserId(@Param('userId') userId: string) {
+    return this.schoolService.getSchoolByUserId(userId);
   }
 
-  @Put(':id')
-  async updateSchoolProfile(
-    @Param('id') id: string,
-    @Body() school: UpdateSchoolDto,
-  ): Promise<IUser> {
-    const updatedSchoolProfile = await this.userService.updateUserById(
-      id,
-      school,
-    );
+  @Post(':userId')
+  async createSchool(
+    @Param('userId') userId: string,
+    @Body() createSchoolDto: CreateSchoolDto,
+  ) {
+    return this.schoolService.createSchoolProfile(userId, createSchoolDto);
+  }
 
-    if (!updatedSchoolProfile) {
-      throw new NotFoundException(`Colegio con ID ${id} no encontrado`);
-    }
-
-    return updatedSchoolProfile; // Retorna el perfil actualizado
+  @Put(':userId')
+  async updateSchoolByUserId(
+    @Param('userId') userId: string,
+    @Body() updateSchoolDto: UpdateSchoolDto,
+  ) {
+    return this.schoolService.updateSchoolByUserId(userId, updateSchoolDto);
   }
 }

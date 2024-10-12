@@ -3,6 +3,9 @@ import { TipoInstitucion } from '../interfaces/school.interface';
 
 export class CreateSchoolDto {
   @IsString()
+  nombre: string;
+
+  @IsString()
   telefono: string;
 
   @IsString()

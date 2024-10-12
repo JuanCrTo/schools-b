@@ -1,40 +1,51 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-// import { ISchool } from './interfaces/school.interface';
 import { UpdateSchoolDto } from './dto/update-school.dto';
-// import { School } from './model/school.schema';
-import { IUser } from 'src/user/interfaces/user.interface';
-import { User } from 'src/user/model/user.schema';
+import { School } from './model/school.schema';
+import { CreateSchoolDto } from './dto/create-school.dto';
 
 @Injectable()
 export class SchoolService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<IUser>,
+    @InjectModel(School.name) private readonly schoolModel: Model<School>,
   ) {}
 
-  async getSchoolProfile(id: string): Promise<IUser> {
-    const schoolProfile = await this.userModel.findById(id).exec();
-    if (!schoolProfile) {
-      throw new NotFoundException(`Colegio con ID ${id} no encontrado`);
+  async getSchoolByUserId(userId: string): Promise<School> {
+    const school = await this.schoolModel.findOne({ userId }).exec();
+    if (!school) {
+      throw new NotFoundException('Colegio no encontrado para el usuario');
     }
-    return schoolProfile;
+    return school;
   }
 
-  async updateSchoolProfile(
-    id: string,
+  async updateSchoolByUserId(
+    userId: string,
     updateSchoolDto: UpdateSchoolDto,
-  ): Promise<IUser> {
-    const updatedSchoolProfile = await this.userModel
-      .findByIdAndUpdate(id, updateSchoolDto, {
-        new: true,
-        useFindAndModify: false,
-      })
+  ): Promise<School> {
+    const updatedSchool = await this.schoolModel
+      .findOneAndUpdate({ userId }, updateSchoolDto, { new: true })
       .exec();
-
-    if (!updatedSchoolProfile) {
-      throw new NotFoundException(`Colegio con ID ${id} no encontrado`);
+    if (!updatedSchool) {
+      throw new NotFoundException('Colegio no encontrado para el usuario');
     }
-    return updatedSchoolProfile;
+    return updatedSchool;
+  }
+
+  // async createSchool(userId: string, createSchoolDto: CreateSchoolDto): Promise<School> {
+  //   const newSchool = new this.schoolModel({ ...createSchoolDto, userId });
+  //   return newSchool.save();
+  // }
+
+  async createSchoolProfile(
+    userId: string,
+    createSchoolDto: CreateSchoolDto,
+  ): Promise<School> {
+    // Asignamos el userId recibido al nuevo registro de school
+    const newSchool = new this.schoolModel({
+      ...createSchoolDto,
+      userId, // Relacionamos este school con el userId del usuario
+    });
+    return await newSchool.save();
   }
 }

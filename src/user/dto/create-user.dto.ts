@@ -3,10 +3,6 @@ import { TipoUsuario } from '../interfaces/user.interface';
 
 export class CreateUserDto {
   @IsNotEmpty()
-  @IsString()
-  nombre: string;
-
-  @IsNotEmpty()
   @IsEnum(TipoUsuario, { message: 'El tipo de usuario debe ser Colegio o Padre/Estudiante' })
   tipoUsuario: TipoUsuario;
 

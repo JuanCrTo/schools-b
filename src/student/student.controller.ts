@@ -1,24 +1,30 @@
-import { Controller, Get, Put, Body, Param } from '@nestjs/common';
-// import { StudentService } from './student.service';
-// import { IStudent } from './interfaces/student.interface';
+import { Controller, Get, Put, Body, Param, Post } from '@nestjs/common';
 import { UpdateStudentDto } from './dto/update-student.dto';
-import { UserService } from 'src/user/user.service';
-import { IUser } from 'src/user/interfaces/user.interface';
+import { StudentService } from './student.service';
+import { CreateStudentDto } from './dto/create-student.dto';
 
 @Controller('student')
 export class StudentController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly studentService: StudentService) {}
 
-  @Get(':id')
-  async findById(@Param('id') id: string): Promise<IUser> {
-    return await this.userService.obtenerUsuarioPorId(id);
+  @Post(':userId')
+  async createStudent(
+    @Param('userId') userId: string,
+    @Body() createStudentDto: CreateStudentDto,
+  ) {
+    return this.studentService.createStudent(userId, createStudentDto);
   }
 
-  @Put(':id')
-  async updateProfile(
-    @Param('id') id: string,
-    @Body() student: UpdateStudentDto,
-  ): Promise<IUser> {
-    return await this.userService.updateUserById(id, student);
+  @Get(':userId')
+  async getStudentByUserId(@Param('userId') userId: string) {
+    return this.studentService.getStudentByUserId(userId);
+  }
+
+  @Put(':userId')
+  async updateStudentByUserId(
+    @Param('userId') userId: string,
+    @Body() updateStudentDto: UpdateStudentDto,
+  ) {
+    return this.studentService.updateStudentByUserId(userId, updateStudentDto);
   }
 }
