@@ -11,7 +11,6 @@ export class SchoolService {
     @InjectModel(School.name) private readonly schoolModel: Model<ISchool>,
   ) {}
 
-
   async getSchoolProfile(id: string): Promise<ISchool> {
     const schoolProfile = await this.schoolModel.findById(id).exec();
     if (!schoolProfile) {
@@ -25,7 +24,10 @@ export class SchoolService {
     updateSchoolDto: UpdateSchoolDto,
   ): Promise<ISchool> {
     const updatedSchoolProfile = await this.schoolModel
-      .findByIdAndUpdate(id, updateSchoolDto, { new: true })
+      .findByIdAndUpdate(id, updateSchoolDto, {
+        new: true,
+        useFindAndModify: false,
+      })
       .exec();
 
     if (!updatedSchoolProfile) {
