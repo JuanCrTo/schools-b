@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, IsString, Matches } from 'class-validator';
-import { TipoUsuario } from '../enums/tipoUsuario.enum';
+import { TipoUsuario } from '../interfaces/user.interface';
 
 export class CreateUserDto {
   @IsNotEmpty()
