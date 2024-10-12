@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { StudentController } from './Student.controller';
-import { StudentService } from './Student.service';
-import { Student, StudentSchema } from './model/Student.schema';
+import { StudentController } from './student.controller';
+import { StudentService } from './student.service';
+import { Student, StudentSchema } from './model/student.schema';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Student.name, schema: StudentSchema }])],
