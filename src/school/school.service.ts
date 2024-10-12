@@ -3,17 +3,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 // import { ISchool } from './interfaces/school.interface';
 import { UpdateSchoolDto } from './dto/update-school.dto';
-import { School } from './model/school.schema';
+// import { School } from './model/school.schema';
 import { IUser } from 'src/user/interfaces/user.interface';
+import { User } from 'src/user/model/user.schema';
 
 @Injectable()
 export class SchoolService {
   constructor(
-    @InjectModel(School.name) private readonly schoolModel: Model<IUser>,
+    @InjectModel(User.name) private readonly userModel: Model<IUser>,
   ) {}
 
   async getSchoolProfile(id: string): Promise<IUser> {
-    const schoolProfile = await this.schoolModel.findById(id).exec();
+    const schoolProfile = await this.userModel.findById(id).exec();
     if (!schoolProfile) {
       throw new NotFoundException(`Colegio con ID ${id} no encontrado`);
     }
@@ -24,7 +25,7 @@ export class SchoolService {
     id: string,
     updateSchoolDto: UpdateSchoolDto,
   ): Promise<IUser> {
-    const updatedSchoolProfile = await this.schoolModel
+    const updatedSchoolProfile = await this.userModel
       .findByIdAndUpdate(id, updateSchoolDto, {
         new: true,
         useFindAndModify: false,

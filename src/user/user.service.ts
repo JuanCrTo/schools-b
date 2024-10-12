@@ -5,6 +5,7 @@ import { IUser } from './interfaces/user.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './model/user.schema';
 import * as bcrypt from 'bcrypt';
+import { UpdateSchoolDto } from 'src/school/dto/update-school.dto';
 
 @Injectable()
 export class UserService {
@@ -44,5 +45,15 @@ export class UserService {
     }
 
     return usuario;
+  }
+
+  async updateUserById(id: string, updateUserDto: UpdateSchoolDto): Promise<IUser | null> {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      id,
+      updateUserDto,
+      { new: true, useFindAndModify: false }
+    ).exec();
+  
+    return updatedUser;
   }
 }
