@@ -1,5 +1,5 @@
 import { IsString, IsNumber, IsEnum } from 'class-validator';
-import { TipoInstitucion } from '../interfaces/school.interface';
+import { Genero, TipoInstitucion } from '../interfaces/school.interface';
 
 export class CreateSchoolDto {
   @IsString()
@@ -9,7 +9,16 @@ export class CreateSchoolDto {
   telefono: string;
 
   @IsString()
-  direccion: string;
+  descripcion: string;
+
+  @IsString()
+  servicios: string;
+
+  @IsString()
+  ubicacion: string;
+
+  @IsEnum(Genero)
+  genero: Genero;
 
   @IsEnum(TipoInstitucion)
   tipoInstitucion: TipoInstitucion;
@@ -20,9 +29,42 @@ export class CreateSchoolDto {
   @IsNumber()
   numProfesores: number;
 
-  @IsString()
-  descripcion: string;
+  @IsNumber()
+  precioMinMensual: number;
 
-  @IsString()
-  servicios: string;
+  @IsNumber()
+  precioMaxMensual: number;
+
+  @IsNumber()
+  precioMinMatricula: number;
+
+  @IsNumber()
+  precioMaxMatricula: number;
+
+  @IsNumber()
+  icfesMinimo: number;
+
+  @IsNumber()
+  cantidadProfesoresMin: number;
+
+  @IsNumber()
+  cantidadProfesoresMax: number;
+
+  @IsNumber()
+  cantidadSalonesMin: number;
+
+  @IsNumber()
+  cantidadSalonesMax: number;
+
+  @IsNumber()
+  cantidadGradosMin: number;
+
+  @IsNumber()
+  cantidadGradosMax: number;
+
+  @IsNumber()
+  cantidadAlumnosMin: number;
+
+  @IsNumber()
+  cantidadAlumnosMax: number;
 }

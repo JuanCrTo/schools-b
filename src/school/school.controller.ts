@@ -2,6 +2,7 @@ import { Controller, Get, Put, Body, Param, Post } from '@nestjs/common';
 import { SchoolService } from './school.service';
 import { UpdateSchoolDto } from './dto/update-school.dto';
 import { CreateSchoolDto } from './dto/create-school.dto';
+import { School } from './model/school.schema';
 
 @Controller('school')
 export class SchoolController {
@@ -31,5 +32,10 @@ export class SchoolController {
   @Get()
   async getAllSchools() {
     return this.schoolService.getAllSchools();
+  }
+
+  @Post('filter')
+  async filterSchools(@Body() createSchoolDto: CreateSchoolDto): Promise<School[]> {
+    return await this.schoolService.filterSchools(createSchoolDto);
   }
 }

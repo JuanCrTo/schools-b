@@ -47,4 +47,83 @@ export class SchoolService {
   async getAllSchools(): Promise<School[]> {
     return await this.schoolModel.find().exec(); // Obtiene todos los colegios
   }
+
+  async filterSchools(createSchoolDto: CreateSchoolDto): Promise<School[]> {
+    const query: any = {};
+
+    const filters = [
+      { field: 'nombre', regex: true },
+      { field: 'telefono', regex: true },
+      { field: 'descripcion', regex: true },
+      { field: 'servicios', regex: true },
+      { field: 'ubicacion', regex: true },
+      { field: 'genero' },
+      { field: 'tipoInstitucion' },
+      { field: 'numEstudiantes' },
+      { field: 'numProfesores' },
+    ];
+
+    filters.forEach(({ field, regex }) => {
+      if (createSchoolDto[field]) {
+        query[field] = regex
+          ? { $regex: createSchoolDto[field], $options: 'i' }
+          : createSchoolDto[field];
+      }
+    });
+
+    const priceFilters = [
+      {
+        field: 'precioMensual',
+        minField: 'precioMinMensual',
+        maxField: 'precioMaxMensual',
+      },
+      {
+        field: 'precioMatricula',
+        minField: 'precioMinMatricula',
+        maxField: 'precioMaxMatricula',
+      },
+    ];
+
+    priceFilters.forEach(({ field, minField, maxField }) => {
+      if (createSchoolDto[minField]) {
+        query[field] = { ...query[field], $gte: createSchoolDto[minField] };
+      }
+      if (createSchoolDto[maxField]) {
+        query[field] = { ...query[field], $lte: createSchoolDto[maxField] };
+      }
+    });
+
+    const rangeFilters = [
+      {
+        field: 'cantidadProfesores',
+        minField: 'cantidadProfesoresMin',
+        maxField: 'cantidadProfesoresMax',
+      },
+      {
+        field: 'cantidadSalones',
+        minField: 'cantidadSalonesMin',
+        maxField: 'cantidadSalonesMax',
+      },
+      {
+        field: 'cantidadGrados',
+        minField: 'cantidadGradosMin',
+        maxField: 'cantidadGradosMax',
+      },
+      {
+        field: 'cantidadAlumnos',
+        minField: 'cantidadAlumnosMin',
+        maxField: 'cantidadAlumnosMax',
+      },
+    ];
+
+    rangeFilters.forEach(({ field, minField, maxField }) => {
+      if (createSchoolDto[minField]) {
+        query[field] = { ...query[field], $gte: createSchoolDto[minField] };
+      }
+      if (createSchoolDto[maxField]) {
+        query[field] = { ...query[field], $lte: createSchoolDto[maxField] };
+      }
+    });
+    return await this.schoolModel.find(query).exec();
+  }
 }
