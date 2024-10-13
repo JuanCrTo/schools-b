@@ -1,4 +1,4 @@
-import { Controller, Get, Put, Body, Param, Post } from '@nestjs/common';
+import { Controller, Get, Put, Body, Param, Post, Query } from '@nestjs/common';
 import { SchoolService } from './school.service';
 import { UpdateSchoolDto } from './dto/update-school.dto';
 import { CreateSchoolDto } from './dto/create-school.dto';
@@ -34,8 +34,10 @@ export class SchoolController {
     return this.schoolService.getAllSchools();
   }
 
-  @Post('filter')
-  async filterSchools(@Body() createSchoolDto: CreateSchoolDto): Promise<School[]> {
+  @Get('filter/filtro')
+  async filterSchools(
+    @Query() createSchoolDto: CreateSchoolDto,
+  ): Promise<School[]> {
     return await this.schoolService.filterSchools(createSchoolDto);
   }
 }

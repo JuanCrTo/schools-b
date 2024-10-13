@@ -14,7 +14,7 @@ export class SchoolService {
   async getSchoolByUserId(userId: string): Promise<School> {
     const school = await this.schoolModel.findOne({ userId }).exec();
     if (!school) {
-      throw new NotFoundException('Colegio no encontrado para el usuario');
+      throw new NotFoundException('Colegio no encontrado para el usuaria');
     }
     return school;
   }
