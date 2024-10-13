@@ -27,4 +27,9 @@ export class SchoolController {
   ) {
     return this.schoolService.updateSchoolByUserId(userId, updateSchoolDto);
   }
+
+  @Get()
+  async getAllSchools() {
+    return this.schoolService.getAllSchools();
+  }
 }

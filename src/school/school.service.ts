@@ -32,11 +32,6 @@ export class SchoolService {
     return updatedSchool;
   }
 
-  // async createSchool(userId: string, createSchoolDto: CreateSchoolDto): Promise<School> {
-  //   const newSchool = new this.schoolModel({ ...createSchoolDto, userId });
-  //   return newSchool.save();
-  // }
-
   async createSchoolProfile(
     userId: string,
     createSchoolDto: CreateSchoolDto,
@@ -47,5 +42,9 @@ export class SchoolService {
       userId, // Relacionamos este school con el userId del usuario
     });
     return await newSchool.save();
+  }
+
+  async getAllSchools(): Promise<School[]> {
+    return await this.schoolModel.find().exec(); // Obtiene todos los colegios
   }
 }
