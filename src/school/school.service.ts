@@ -25,7 +25,7 @@ export class SchoolService {
       throw new NotFoundException('Colegio no encontrado');
     }
     return school;
-  }  
+  }
 
   async updateSchoolByUserId(
     userId: string,

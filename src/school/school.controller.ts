@@ -30,7 +30,7 @@ export class SchoolController {
   async updateSchoolByUserId(
     @Param('userId') userId: string,
     @Body() updateSchoolDto: UpdateSchoolDto,
-  ) {
+  ): Promise<School> {
     return this.schoolService.updateSchoolByUserId(userId, updateSchoolDto);
   }
 
