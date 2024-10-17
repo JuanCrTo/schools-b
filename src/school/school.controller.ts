@@ -8,9 +8,14 @@ import { School } from './model/school.schema';
 export class SchoolController {
   constructor(private readonly schoolService: SchoolService) {}
 
-  @Get(':userId')
+  @Get('/profile/:userId')
   async getSchoolByUserId(@Param('userId') userId: string) {
     return this.schoolService.getSchoolByUserId(userId);
+  }
+
+  @Get('profile/details/:id')
+  async getSchoolProfile(@Param('id') id: string): Promise<School> {
+    return await this.schoolService.getSchoolById(id); // Asegúrate de que este método exista
   }
 
   @Post(':userId')

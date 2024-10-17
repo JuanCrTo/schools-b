@@ -19,6 +19,14 @@ export class SchoolService {
     return school;
   }
 
+  async getSchoolById(id: string): Promise<School> {
+    const school = await this.schoolModel.findById(id).exec();
+    if (!school) {
+      throw new NotFoundException('Colegio no encontrado');
+    }
+    return school;
+  }  
+
   async updateSchoolByUserId(
     userId: string,
     updateSchoolDto: UpdateSchoolDto,
