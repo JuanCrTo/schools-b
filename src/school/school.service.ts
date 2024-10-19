@@ -123,18 +123,18 @@ export class SchoolService {
         maxField: 'cantidadGradosMax',
       },
       {
-        field: 'numEstudiantes',
+        field: 'numEstudiantes', // Cambia este a 'numEstudiantes' si es lo que deseas
         minField: 'cantidadAlumnosMin',
         maxField: 'cantidadAlumnosMax',
       },
     ];
-
+    
     rangeFilters.forEach(({ field, minField, maxField }) => {
-      if (createSchoolDto[minField]) {
-        query[field] = { ...query[field], $gte: createSchoolDto[minField] };
+      if (createSchoolDto[minField] !== undefined) {
+        query[field] = { ...query[field], $gt: createSchoolDto[minField] }; // Cambia a $gt para min
       }
-      if (createSchoolDto[maxField]) {
-        query[field] = { ...query[field], $lte: createSchoolDto[maxField] };
+      if (createSchoolDto[maxField] !== undefined) {
+        query[field] = { ...query[field], $lt: createSchoolDto[maxField] }; // Cambia a $lt para max
       }
     });
 
