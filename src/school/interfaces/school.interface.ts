@@ -19,17 +19,9 @@ export interface ISchool {
   tipoInstitucion: TipoInstitucion;
   numEstudiantes: number;
   numProfesores: number;
-  precioMinMensual: number;
-  precioMaxMensual: number;
-  precioMinMatricula: number;
-  precioMaxMatricula: number;
-  icfesMinimo: number;
-  cantidadProfesoresMin: number;
-  cantidadProfesoresMax: number;
-  cantidadSalonesMin: number;
-  cantidadSalonesMax: number;
-  cantidadGradosMin: number;
-  cantidadGradosMax: number;
-  cantidadAlumnosMin: number;
-  cantidadAlumnosMax: number;
+  precioMensual: number;
+  precioMatricula: number;
+  icfes: number;
+  cantidadSalones: number;
+  cantidadGrados: number;
 }

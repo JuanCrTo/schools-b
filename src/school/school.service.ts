@@ -69,6 +69,11 @@ export class SchoolService {
       { field: 'tipoInstitucion' },
       { field: 'numEstudiantes' },
       { field: 'numProfesores' },
+      { field: 'precioMensual' },
+      { field: 'precioMatricula' },
+      { field: 'icfes' },
+      { field: 'cantidadSalones' },
+      { field: 'cantidadGrados' },
     ];
 
     filters.forEach(({ field, regex }) => {
@@ -118,7 +123,7 @@ export class SchoolService {
         maxField: 'cantidadGradosMax',
       },
       {
-        field: 'cantidadAlumnos',
+        field: 'numEstudiantes',
         minField: 'cantidadAlumnosMin',
         maxField: 'cantidadAlumnosMax',
       },
@@ -132,6 +137,7 @@ export class SchoolService {
         query[field] = { ...query[field], $lte: createSchoolDto[maxField] };
       }
     });
+
     return await this.schoolModel.find(query).exec();
   }
 }

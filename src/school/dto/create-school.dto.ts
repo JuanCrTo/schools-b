@@ -30,41 +30,17 @@ export class CreateSchoolDto {
   numProfesores: number;
 
   @IsNumber()
-  precioMinMensual: number;
+  precioMensual: number;
 
   @IsNumber()
-  precioMaxMensual: number;
+  precioMatricula: number;
 
   @IsNumber()
-  precioMinMatricula: number;
+  icfes: number;
 
   @IsNumber()
-  precioMaxMatricula: number;
+  cantidadSalones: number;
 
   @IsNumber()
-  icfesMinimo: number;
-
-  @IsNumber()
-  cantidadProfesoresMin: number;
-
-  @IsNumber()
-  cantidadProfesoresMax: number;
-
-  @IsNumber()
-  cantidadSalonesMin: number;
-
-  @IsNumber()
-  cantidadSalonesMax: number;
-
-  @IsNumber()
-  cantidadGradosMin: number;
-
-  @IsNumber()
-  cantidadGradosMax: number;
-
-  @IsNumber()
-  cantidadAlumnosMin: number;
-
-  @IsNumber()
-  cantidadAlumnosMax: number;
+  cantidadGrados: number;
 }

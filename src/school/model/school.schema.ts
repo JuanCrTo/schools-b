@@ -37,43 +37,19 @@ export class School {
   numProfesores: number;
 
   @Prop({ required: false, default: 0 })
-  precioMinMensual: number;
+  precioMensual: number;
 
   @Prop({ required: false, default: 0 })
-  precioMaxMensual: number;
+  precioMatricula: number;
 
   @Prop({ required: false, default: 0 })
-  precioMinMatricula: number;
+  icfes: number;
 
   @Prop({ required: false, default: 0 })
-  precioMaxMatricula: number;
+  cantidadSalones: number;
 
   @Prop({ required: false, default: 0 })
-  icfesMinimo: number;
-
-  @Prop({ required: false, default: 0 })
-  cantidadProfesoresMin: number;
-
-  @Prop({ required: false, default: 0 })
-  cantidadProfesoresMax: number;
-
-  @Prop({ required: false, default: 0 })
-  cantidadSalonesMin: number;
-
-  @Prop({ required: false, default: 0 })
-  cantidadSalonesMax: number;
-
-  @Prop({ required: false, default: 0 })
-  cantidadGradosMin: number;
-
-  @Prop({ required: false, default: 0 })
-  cantidadGradosMax: number;
-
-  @Prop({ required: false, default: 0 })
-  cantidadAlumnosMin: number;
-
-  @Prop({ required: false, default: 0 })
-  cantidadAlumnosMax: number;
+  cantidadGrados: number;
 }
 
 export const SchoolSchema = SchemaFactory.createForClass(School);
