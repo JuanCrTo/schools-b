@@ -8,7 +8,7 @@ import { School } from './model/school.schema';
 export class SchoolController {
   constructor(private readonly schoolService: SchoolService) {}
 
-  @Get('/profile/:userId')
+  @Get('profile/:userId')
   async getSchoolByUserId(@Param('userId') userId: string) {
     return this.schoolService.getSchoolByUserId(userId);
   }

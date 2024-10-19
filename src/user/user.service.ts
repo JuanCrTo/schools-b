@@ -7,12 +7,14 @@ import { User } from './model/user.schema';
 import * as bcrypt from 'bcrypt';
 import { UpdateSchoolDto } from 'src/school/dto/update-school.dto';
 import { School } from 'src/school/model/school.schema';
+import { Student } from 'src/student/model/student.schema';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<IUser>,
     @InjectModel(School.name) private readonly schoolModel: Model<School>,
+    @InjectModel(Student.name) private readonly studentModel: Model<Student>,
   ) {}
 
   async registrarse(createUserDto: CreateUserDto): Promise<IUser> {
@@ -27,7 +29,7 @@ export class UserService {
     const passwordHashed = await bcrypt.hash(createUserDto.password, 10);
     const nuevoUser = new this.userModel({
       ...createUserDto,
-      password: passwordHashed, // Almacena la contraseña hasheada
+      password: passwordHashed,
     });
 
     const savedUser = await nuevoUser.save();
@@ -35,10 +37,14 @@ export class UserService {
     // Si el tipoUsuario es "colegio", crear un registro en la colección 'school'
     if (createUserDto.tipoUsuario === 'Colegio') {
       const nuevaSchool = new this.schoolModel({
-        userId: savedUser._id, // Asignar el userId del nuevo usuario
-        // Dejar los demás campos vacíos o con valores predeterminados
+        userId: savedUser._id,
       });
       await nuevaSchool.save();
+    } else if (createUserDto.tipoUsuario === 'Padre/Estudiante') {
+      const nuevoStudent = new this.studentModel({
+        userId: savedUser._id,
+      });
+      await nuevoStudent.save();
     }
 
     return savedUser;

@@ -44,10 +44,9 @@ export class SchoolService {
     userId: string,
     createSchoolDto: CreateSchoolDto,
   ): Promise<School> {
-    // Asignamos el userId recibido al nuevo registro de school
     const newSchool = new this.schoolModel({
       ...createSchoolDto,
-      userId, // Relacionamos este school con el userId del usuario
+      userId,
     });
     return await newSchool.save();
   }

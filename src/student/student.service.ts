@@ -27,6 +27,15 @@ export class StudentService {
     return student;
   }
 
+  // Nueva función para obtener detalles por ID
+  async getStudentById(id: string): Promise<Student> {
+    const student = await this.studentModel.findById(id).exec();
+    if (!student) {
+      throw new NotFoundException('Estudiante no encontrado');
+    }
+    return student;
+  }
+
   async updateStudentByUserId(
     userId: string,
     updateStudentDto: UpdateStudentDto,

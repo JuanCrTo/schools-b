@@ -10,3 +10,9 @@ export interface IUser {
   fechaRegistro: Date;
   tipoUsuario: TipoUsuario;
 }
+
+export interface ISimpleUser {
+  id: string;
+  name: string;
+  tipoUsuario: TipoUsuario;
+}
