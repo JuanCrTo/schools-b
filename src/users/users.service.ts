@@ -5,9 +5,9 @@ import { IUser } from './interfaces/user.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './model/user.schema';
 import * as bcrypt from 'bcrypt';
-import { UpdateSchoolDto } from 'src/school/dto/update-school.dto';
-import { School } from 'src/school/model/school.schema';
-import { Student } from 'src/student/model/student.schema';
+import { UpdateSchoolDto } from 'src/schools/dto/update-school.dto';
+import { School } from 'src/schools/model/school.schema';
+import { Student } from 'src/students/model/student.schema';
 
 @Injectable()
 export class UserService {

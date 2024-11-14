@@ -1,5 +1,13 @@
-import { Controller, Post, Body, Get, Request, HttpException, HttpStatus } from '@nestjs/common';
-import { UserService } from './user.service';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Request,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
+import { UserService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('users')
@@ -14,7 +22,10 @@ export class UserController {
       console.error('Error al registrar el usuario:', error);
 
       if (error.message === 'El email ya está registrado') {
-        throw new HttpException('El email ya está registrado', HttpStatus.CONFLICT);
+        throw new HttpException(
+          'El email ya está registrado',
+          HttpStatus.CONFLICT,
+        );
       }
 
       throw new HttpException(
@@ -35,7 +46,10 @@ export class UserController {
       };
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
-      throw new HttpException('Credenciales inválidas', HttpStatus.UNAUTHORIZED);
+      throw new HttpException(
+        'Credenciales inválidas',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
   }
 
@@ -54,7 +68,10 @@ export class UserController {
       };
     } catch (error) {
       console.error('Error al obtener el perfil del usuario:', error);
-      throw new HttpException('Error al obtener el perfil', HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(
+        'Error al obtener el perfil',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

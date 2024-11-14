@@ -1,5 +1,5 @@
 import { Controller, Get, Put, Body, Param, Post, Query } from '@nestjs/common';
-import { SchoolService } from './school.service';
+import { SchoolService } from './schools.service';
 import { UpdateSchoolDto } from './dto/update-school.dto';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { School } from './model/school.schema';

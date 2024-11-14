@@ -1,9 +1,9 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { StudentController } from './student.controller';
-import { StudentService } from './student.service';
+import { StudentController } from './students.controller';
+import { StudentService } from './students.service';
 import { Student, StudentSchema } from './model/student.schema';
-import { UserModule } from 'src/user/user.module';
+import { UserModule } from 'src/users/users.module';
 
 @Module({
   imports: [
