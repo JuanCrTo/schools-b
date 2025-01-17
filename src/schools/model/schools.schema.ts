@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { Genero, TipoInstitucion } from '../interfaces/school.interface';
+import { Genero, TipoInstitucion } from '../interfaces/schools.interface';
 
 export type SchoolDocument = HydratedDocument<School>;
 
@@ -42,7 +42,7 @@ export class School {
   @Prop({ required: false, default: 0 })
   precioMatricula: number;
 
-  @Prop({ required: false, default: 0 })
+  @Prop({ required: false, default: 0, max: 500 })
   icfes: number;
 
   @Prop({ required: false, default: 0 })

@@ -1,5 +1,5 @@
-import { IsString, IsNumber, IsEnum } from 'class-validator';
-import { Genero, TipoInstitucion } from '../interfaces/school.interface';
+import { IsString, IsNumber, IsEnum, Max, Min } from 'class-validator';
+import { Genero, TipoInstitucion } from '../interfaces/schools.interface';
 
 export class CreateSchoolDto {
   @IsString()
@@ -36,6 +36,8 @@ export class CreateSchoolDto {
   precioMatricula: number;
 
   @IsNumber()
+  @Min(0)
+  @Max(500, { message: 'El valor del ICFES no puede ser mayor a 500' })
   icfes: number;
 
   @IsNumber()

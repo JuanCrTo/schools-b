@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ChatService } from './chat.service';
-import { ISimpleUser, IUser } from 'src/user/interfaces/user.interface';
+import { ISimpleUser, IUser } from 'src/users/interfaces/users.interface';
 
 @Controller('chat')
 export class ChatController {

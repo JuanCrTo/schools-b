@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { IUser } from './interfaces/user.interface';
-import { CreateUserDto } from './dto/create-user.dto';
-import { User } from './model/user.schema';
+import { IUser } from './interfaces/users.interface';
+import { CreateUserDto } from './dto/create-users.dto';
+import { User } from './model/users.schema';
 import * as bcrypt from 'bcrypt';
-import { UpdateSchoolDto } from 'src/schools/dto/update-school.dto';
-import { School } from 'src/schools/model/school.schema';
-import { Student } from 'src/students/model/student.schema';
+import { UpdateSchoolDto } from 'src/schools/dto/update-schools.dto';
+import { School } from 'src/schools/model/schools.schema';
+import { Student } from 'src/students/model/students.schema';
 
 @Injectable()
 export class UserService {

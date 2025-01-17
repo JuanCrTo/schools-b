@@ -2,8 +2,9 @@ import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { SchoolController } from './schools.controller';
 import { SchoolService } from './schools.service';
-import { School, SchoolSchema } from './model/school.schema';
-import { UserModule } from 'src/user/user.module';
+import { School, SchoolSchema } from './model/schools.schema';
+import { UserModule } from 'src/users/users.module';
+import { CloudinaryService } from './cloudinary.service';
 
 @Module({
   imports: [
@@ -11,7 +12,7 @@ import { UserModule } from 'src/user/user.module';
     forwardRef(() => UserModule),
   ],
   controllers: [SchoolController],
-  providers: [SchoolService],
-  exports: [MongooseModule],
+  providers: [SchoolService, CloudinaryService],
+  exports: [MongooseModule, CloudinaryService],
 })
 export class SchoolModule {}

@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UpdateSchoolDto } from './dto/update-school.dto';
-import { School } from './model/school.schema';
-import { CreateSchoolDto } from './dto/create-school.dto';
+import { UpdateSchoolDto } from './dto/update-schools.dto';
+import { School } from './model/schools.schema';
+import { CreateSchoolDto } from './dto/create-schools.dto';
 
 @Injectable()
 export class SchoolService {
@@ -31,6 +31,9 @@ export class SchoolService {
     userId: string,
     updateSchoolDto: UpdateSchoolDto,
   ): Promise<School> {
+    if (updateSchoolDto.icfes > 500) {
+      throw new Error('El valor del ICFES no puede ser mayor a 500');
+    }
     const updatedSchool = await this.schoolModel
       .findOneAndUpdate({ userId }, updateSchoolDto, { new: true })
       .exec();
@@ -60,10 +63,6 @@ export class SchoolService {
 
     const filters = [
       { field: 'nombre', regex: true },
-      { field: 'telefono', regex: true },
-      { field: 'descripcion', regex: true },
-      { field: 'servicios', regex: true },
-      { field: 'ubicacion', regex: true },
       { field: 'genero' },
       { field: 'tipoInstitucion' },
       { field: 'numEstudiantes' },
@@ -122,20 +121,24 @@ export class SchoolService {
         maxField: 'cantidadGradosMax',
       },
       {
-        field: 'numEstudiantes', // Cambia este a 'numEstudiantes' si es lo que deseas
+        field: 'numEstudiantes',
         minField: 'cantidadAlumnosMin',
         maxField: 'cantidadAlumnosMax',
       },
     ];
-    
+
     rangeFilters.forEach(({ field, minField, maxField }) => {
       if (createSchoolDto[minField] !== undefined) {
-        query[field] = { ...query[field], $gt: createSchoolDto[minField] }; // Cambia a $gt para min
+        query[field] = { ...query[field], $gte: createSchoolDto[minField] };
       }
       if (createSchoolDto[maxField] !== undefined) {
-        query[field] = { ...query[field], $lt: createSchoolDto[maxField] }; // Cambia a $lt para max
+        query[field] = { ...query[field], $lte: createSchoolDto[maxField] };
       }
     });
+
+    if (createSchoolDto.icfes !== undefined) {
+      query.icfes = { $gte: createSchoolDto.icfes };
+    }
 
     return await this.schoolModel.find(query).exec();
   }
