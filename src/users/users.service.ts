@@ -40,7 +40,7 @@ export class UserService {
         userId: savedUser._id,
       });
       await nuevaSchool.save();
-    } else if (createUserDto.tipoUsuario === 'Padre/Estudiante') {
+    } else if (createUserDto.tipoUsuario === 'Estudiante') {
       const nuevoStudent = new this.studentModel({
         userId: savedUser._id,
       });
